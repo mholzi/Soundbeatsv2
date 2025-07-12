@@ -4,6 +4,7 @@ from typing import Any
 import voluptuous as vol
 
 from homeassistant.components.frontend import async_register_built_in_panel
+from homeassistant.components import frontend
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.components.websocket_api import async_register_command
 from homeassistant.config_entries import ConfigEntry
@@ -14,6 +15,7 @@ from homeassistant.helpers.typing import ConfigType
 
 from .const import DOMAIN, CONF_MEDIA_PLAYER
 from .game_manager import GameManager
+from .panel import get_panel_url
 from .websocket_api import (
     websocket_get_game_state,
     websocket_new_game,
@@ -53,17 +55,16 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     ])
     
     # Register custom panel
-    async_register_built_in_panel(
+    frontend.async_register_built_in_panel(
         hass,
-        component_name="soundbeatsv2",
+        component_name="iframe",
         sidebar_title="Soundbeats",
         sidebar_icon="mdi:music-note",
         frontend_url_path="soundbeatsv2",
-        config_panel_domain=DOMAIN,
         config={
-            "version": "1.0.0",
+            "url": get_panel_url()
         },
-        require_admin=False,  # Allow non-admin users in multi-user mode
+        require_admin=False,
     )
     
     # Register WebSocket commands
