@@ -46,8 +46,8 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     # Register frontend files
     await hass.http.async_register_static_paths([
         StaticPathConfig(
-            "/soundbeats_files",
-            hass.config.path("custom_components/soundbeats/frontend"),
+            "/soundbeatsv2_files",
+            hass.config.path("custom_components/soundbeatsv2/frontend"),
             cache_headers=True
         )
     ])
@@ -55,10 +55,10 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     # Register custom panel
     async_register_built_in_panel(
         hass,
-        component_name="soundbeats",
+        component_name="soundbeatsv2",
         sidebar_title="Soundbeats",
         sidebar_icon="mdi:music-note",
-        frontend_url_path="soundbeats",
+        frontend_url_path="soundbeatsv2",
         config_panel_domain=DOMAIN,
         config={
             "version": "1.0.0",

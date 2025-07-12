@@ -60,7 +60,7 @@ Transform your Home Assistant into an interactive music trivia party game! Sound
    ```bash
    cd /config/custom_components/
    git clone https://github.com/mholzi/Soundbeatsv2.git
-   mv Soundbeatsv2/custom_components/soundbeats .
+   mv Soundbeatsv2/custom_components/soundbeatsv2 .
    rm -rf Soundbeatsv2
    ```
 
@@ -128,7 +128,7 @@ Transform your Home Assistant into an interactive music trivia party game! Sound
 
 ### Custom Song Database
 
-Create `custom_components/soundbeats/frontend/src/data/songs.json`:
+Create `custom_components/soundbeatsv2/frontend/src/data/songs.json`:
 
 ```json
 [
@@ -145,7 +145,7 @@ Create `custom_components/soundbeats/frontend/src/data/songs.json`:
 
 ### Custom Playlists
 
-Create `custom_components/soundbeats/frontend/src/data/playlists.json`:
+Create `custom_components/soundbeatsv2/frontend/src/data/playlists.json`:
 
 ```json
 [
@@ -165,7 +165,7 @@ Set in Home Assistant configuration:
 
 ```yaml
 # configuration.yaml
-soundbeats:
+soundbeatsv2:
   default_timer: 30
   max_teams: 5
   enable_betting: true
@@ -199,7 +199,7 @@ soundbeats:
 ```javascript
 // Create new game
 {
-  "type": "soundbeats/new_game",
+  "type": "soundbeatsv2/new_game",
   "team_names": ["Team Alpha", "Team Beta"],
   "playlist_id": "80s",
   "timer_seconds": 30
@@ -207,7 +207,7 @@ soundbeats:
 
 // Submit guess
 {
-  "type": "soundbeats/submit_guess",
+  "type": "soundbeatsv2/submit_guess",
   "team_id": "team_0",
   "guess": 1985,
   "has_bet": true
@@ -215,16 +215,16 @@ soundbeats:
 
 // Control playback
 {
-  "type": "soundbeats/start_round"
+  "type": "soundbeatsv2/start_round"
 }
 ```
 
 ### REST API Endpoints
 
 ```http
-GET /api/soundbeats/state
-GET /api/soundbeats/highscores?round=3
-POST /api/soundbeats/reset
+GET /api/soundbeatsv2/state
+GET /api/soundbeatsv2/highscores?round=3
+POST /api/soundbeatsv2/reset
 ```
 
 ## 🐛 Troubleshooting
@@ -254,7 +254,7 @@ Enable debug logging in `configuration.yaml`:
 logger:
   default: info
   logs:
-    custom_components.soundbeats: debug
+    custom_components.soundbeatsv2: debug
 ```
 
 ### Performance Optimization

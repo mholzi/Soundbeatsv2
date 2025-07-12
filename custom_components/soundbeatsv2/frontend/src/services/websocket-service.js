@@ -162,11 +162,11 @@ export class WebSocketService extends EventTarget {
     // Soundbeats-specific command methods
     
     async getGameState() {
-        return await this.sendCommand('soundbeats/get_game_state');
+        return await this.sendCommand('soundbeatsv2/get_game_state');
     }
     
     async newGame(teamCount, playlistId, timerSeconds = 30) {
-        return await this.sendCommand('soundbeats/new_game', {
+        return await this.sendCommand('soundbeatsv2/new_game', {
             team_count: teamCount,
             playlist_id: playlistId,
             timer_seconds: timerSeconds
@@ -174,7 +174,7 @@ export class WebSocketService extends EventTarget {
     }
     
     async submitGuess(teamId, year, hasBet = false) {
-        return await this.sendCommand('soundbeats/submit_guess', {
+        return await this.sendCommand('soundbeatsv2/submit_guess', {
             team_id: teamId,
             year: year,
             has_bet: hasBet
@@ -182,35 +182,35 @@ export class WebSocketService extends EventTarget {
     }
     
     async startRound(song) {
-        return await this.sendCommand('soundbeats/start_round', {
+        return await this.sendCommand('soundbeatsv2/start_round', {
             song: song
         });
     }
     
     async nextRound() {
-        return await this.sendCommand('soundbeats/next_round');
+        return await this.sendCommand('soundbeatsv2/next_round');
     }
     
     async updateTeamName(teamId, name) {
-        return await this.sendCommand('soundbeats/update_team_name', {
+        return await this.sendCommand('soundbeatsv2/update_team_name', {
             team_id: teamId,
             name: name
         });
     }
     
     async assignUserToTeam(teamId, userId) {
-        return await this.sendCommand('soundbeats/assign_user_to_team', {
+        return await this.sendCommand('soundbeatsv2/assign_user_to_team', {
             team_id: teamId,
             user_id: userId
         });
     }
     
     async getHighscores() {
-        return await this.sendCommand('soundbeats/get_highscores');
+        return await this.sendCommand('soundbeatsv2/get_highscores');
     }
     
     async mediaControl(action, params = {}) {
-        return await this.sendCommand('soundbeats/media_control', {
+        return await this.sendCommand('soundbeatsv2/media_control', {
             action: action,
             ...params
         });

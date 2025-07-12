@@ -1,5 +1,5 @@
 {
-  "domain": "soundbeats",
+  "domain": "soundbeatsv2",
   "name": "Soundbeats Music Trivia",
   "codeowners": ["@mholzi"],
   "config_flow": true,

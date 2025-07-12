@@ -139,7 +139,7 @@ lerna-debug.log*
 .temp/
 
 # Build outputs that can be regenerated
-custom_components/soundbeats/frontend/dist/
+custom_components/soundbeatsv2/frontend/dist/
 
 # Development tools output
 *.map

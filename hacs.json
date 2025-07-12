@@ -2,7 +2,7 @@
   "name": "Soundbeats Music Trivia",
   "content_in_root": false,
   "render_readme": true,
-  "domains": ["soundbeats"],
+  "domains": ["soundbeatsv2"],
   "homeassistant": "2023.9.0",
   "iot_class": "local_polling",
   "country": ["US"],

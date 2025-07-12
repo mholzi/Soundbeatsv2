@@ -1,7 +1,7 @@
 """Constants for the Soundbeats integration."""
 from typing import Final
 
-DOMAIN: Final = "soundbeats"
+DOMAIN: Final = "soundbeatsv2"
 
 # Configuration
 CONF_MEDIA_PLAYER: Final = "media_player"

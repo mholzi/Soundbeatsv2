@@ -16,7 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/get_game_state",
+    vol.Required("type"): "soundbeatsv2/get_game_state",
     vol.Optional("config_entry_id"): str,
 })
 @callback
@@ -69,7 +69,7 @@ def websocket_get_game_state(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/new_game",
+    vol.Required("type"): "soundbeatsv2/new_game",
     vol.Required("team_count"): vol.All(int, vol.Range(min=1, max=5)),
     vol.Required("playlist_id"): str,
     vol.Optional("timer_seconds", default=30): vol.All(int, vol.Range(min=5, max=300)),
@@ -137,7 +137,7 @@ async def websocket_new_game(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/submit_guess",
+    vol.Required("type"): "soundbeatsv2/submit_guess",
     vol.Required("team_id"): str,
     vol.Required("year"): vol.All(int, vol.Range(min=1900, max=2030)),
     vol.Optional("has_bet", default=False): bool,
@@ -212,7 +212,7 @@ async def websocket_submit_guess(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/start_round",
+    vol.Required("type"): "soundbeatsv2/start_round",
     vol.Required("song"): dict,
     vol.Optional("config_entry_id"): str,
 })
@@ -283,7 +283,7 @@ async def websocket_start_round(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/next_round",
+    vol.Required("type"): "soundbeatsv2/next_round",
     vol.Optional("config_entry_id"): str,
 })
 @websocket_api.async_response
@@ -339,7 +339,7 @@ async def websocket_next_round(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/update_team_name",
+    vol.Required("type"): "soundbeatsv2/update_team_name",
     vol.Required("team_id"): str,
     vol.Required("name"): str,
     vol.Optional("config_entry_id"): str,
@@ -405,7 +405,7 @@ async def websocket_update_team_name(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/assign_user_to_team",
+    vol.Required("type"): "soundbeatsv2/assign_user_to_team",
     vol.Required("team_id"): str,
     vol.Required("user_id"): str,
     vol.Optional("config_entry_id"): str,
@@ -467,7 +467,7 @@ async def websocket_assign_user_to_team(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/get_highscores",
+    vol.Required("type"): "soundbeatsv2/get_highscores",
     vol.Optional("config_entry_id"): str,
 })
 @callback
@@ -505,7 +505,7 @@ def websocket_get_highscores(
 
 
 @websocket_api.websocket_command({
-    vol.Required("type"): "soundbeats/media_control",
+    vol.Required("type"): "soundbeatsv2/media_control",
     vol.Required("action"): vol.In(["play", "pause", "stop", "volume"]),
     vol.Optional("volume_level"): vol.All(float, vol.Range(min=0.0, max=1.0)),
     vol.Optional("config_entry_id"): str,
