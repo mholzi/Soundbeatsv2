@@ -1,0 +1,13 @@
+{
+  "domain": "soundbeats",
+  "name": "Soundbeats Music Trivia",
+  "codeowners": ["@mholzi"],
+  "config_flow": true,
+  "dependencies": ["frontend", "websocket_api", "media_player"],
+  "documentation": "https://github.com/mholzi/Soundbeatsv2",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/mholzi/Soundbeatsv2/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

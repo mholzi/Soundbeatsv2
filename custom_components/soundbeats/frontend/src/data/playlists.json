@@ -1,0 +1,38 @@
+{
+  "default": {
+    "id": "default",
+    "name": "Default Mix",
+    "description": "A diverse mix of popular songs from all eras",
+    "image_url": "/soundbeats_files/src/data/playlist-images/default.jpg"
+  },
+  "80s": {
+    "id": "80s", 
+    "name": "80s Hits",
+    "description": "Greatest hits and iconic songs from the 1980s",
+    "image_url": "/soundbeats_files/src/data/playlist-images/80s.jpg"
+  },
+  "90s": {
+    "id": "90s",
+    "name": "90s Classics", 
+    "description": "Iconic songs and memorable hits from the 1990s",
+    "image_url": "/soundbeats_files/src/data/playlist-images/90s.jpg"
+  },
+  "2000s": {
+    "id": "2000s",
+    "name": "2000s Pop",
+    "description": "Popular songs and chart-toppers from the 2000s",
+    "image_url": "/soundbeats_files/src/data/playlist-images/2000s.jpg"
+  },
+  "rock": {
+    "id": "rock",
+    "name": "Rock Anthems",
+    "description": "Classic rock songs and anthems across all decades",
+    "image_url": "/soundbeats_files/src/data/playlist-images/rock.jpg"
+  },
+  "pop": {
+    "id": "pop", 
+    "name": "Pop Favorites",
+    "description": "Popular mainstream hits and catchy songs",
+    "image_url": "/soundbeats_files/src/data/playlist-images/pop.jpg"
+  }
+}

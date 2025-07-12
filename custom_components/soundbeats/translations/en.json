@@ -1,0 +1,36 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Soundbeats Music Trivia Setup",
+        "description": "Configure your music trivia game",
+        "data": {
+          "media_player": "Media Player",
+          "timer_seconds": "Timer Duration"
+        },
+        "data_description": {
+          "media_player": "Select the media player to use for playing music (optional)",
+          "timer_seconds": "How long teams have to guess the year (5-300 seconds)"
+        }
+      }
+    },
+    "error": {
+      "media_player_not_found": "Selected media player not found"
+    },
+    "abort": {
+      "already_configured": "Soundbeats is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Soundbeats Options",
+        "description": "Update your game settings",
+        "data": {
+          "media_player": "Media Player",
+          "timer_seconds": "Timer Duration"
+        }
+      }
+    }
+  }
+}

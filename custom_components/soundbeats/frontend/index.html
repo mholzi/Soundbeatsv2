@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundbeats Music Trivia</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--primary-font-family, "Roboto", sans-serif);
+            background-color: var(--primary-background-color, #fafafa);
+            color: var(--primary-text-color, #212121);
+            overflow: hidden;
+        }
+        
+        #app {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 1.2rem;
+        }
+        
+        .loading::after {
+            content: "";
+            width: 40px;
+            height: 40px;
+            margin-left: 15px;
+            border: 4px solid var(--divider-color, #e0e0e0);
+            border-top: 4px solid var(--primary-color, #03a9f4);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: var(--error-color, #f44336);
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .error h2 {
+            margin-bottom: 16px;
+        }
+        
+        .error p {
+            margin-bottom: 24px;
+            max-width: 500px;
+        }
+        
+        .retry-button {
+            background: var(--primary-color, #03a9f4);
+            color: var(--text-primary-color, white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .retry-button:hover {
+            background: var(--dark-primary-color, #0288d1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="loading">Loading Soundbeats...</div>
+    </div>
+    
+    <script type="module">
+        // Initialize the Soundbeats panel
+        import('./soundbeats-panel.js').then(module => {
+            const app = document.getElementById('app');
+            
+            // Create the main panel element
+            const panel = document.createElement('soundbeats-panel');
+            
+            // Pass Home Assistant instance and panel config
+            if (window.parent && window.parent.customPanelConfig) {
+                panel.panelConfig = window.parent.customPanelConfig;
+            }
+            
+            // Set up error handling
+            panel.addEventListener('error', (event) => {
+                showError(event.detail.message, event.detail.details);
+            });
+            
+            // Replace loading with panel
+            app.innerHTML = '';
+            app.appendChild(panel);
+            
+        }).catch(error => {
+            console.error('Failed to load Soundbeats panel:', error);
+            showError('Failed to Load', 'Could not initialize the Soundbeats panel. Please check the console for more details.');
+        });
+        
+        function showError(title, message) {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="error">
+                    <h2>${title}</h2>
+                    <p>${message}</p>
+                    <button class="retry-button" onclick="location.reload()">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
+        
+        // Global error handler
+        window.addEventListener('error', (event) => {
+            console.error('Global error:', event.error);
+            showError('Application Error', 'An unexpected error occurred. Please refresh the page.');
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            showError('Application Error', 'An unexpected error occurred. Please refresh the page.');
+        });
+    </script>
+</body>
+</html>

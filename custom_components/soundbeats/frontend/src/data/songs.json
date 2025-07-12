@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "url": "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+    "year": 1975,
+    "song": "Bohemian Rhapsody",
+    "artist": "Queen",
+    "playlist_ids": ["default", "rock", "80s"]
+  },
+  {
+    "id": 2,
+    "url": "https://open.spotify.com/track/5ChkMS8OtdzJeqyybCc9R5",
+    "year": 1982,
+    "song": "Billie Jean",
+    "artist": "Michael Jackson",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 3,
+    "url": "https://open.spotify.com/track/4VqPOruhp5EdPBeR92t6lQ",
+    "year": 1991,
+    "song": "Smells Like Teen Spirit",
+    "artist": "Nirvana",
+    "playlist_ids": ["default", "90s", "rock"]
+  },
+  {
+    "id": 4,
+    "url": "https://open.spotify.com/track/1Je1IMUlBXcx1Fz0WE7oPT",
+    "year": 1977,
+    "song": "Dancing Queen",
+    "artist": "ABBA",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 5,
+    "url": "https://open.spotify.com/track/6dGnYIeXmHdcikdzNNDMm2",
+    "year": 1969,
+    "song": "Here Comes the Sun",
+    "artist": "The Beatles",
+    "playlist_ids": ["default", "rock"]
+  },
+  {
+    "id": 6,
+    "url": "https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3",
+    "year": 1983,
+    "song": "Sweet Dreams (Are Made of This)",
+    "artist": "Eurythmics",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 7,
+    "url": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
+    "year": 1995,
+    "song": "Wonderwall",
+    "artist": "Oasis",
+    "playlist_ids": ["default", "90s", "rock"]
+  },
+  {
+    "id": 8,
+    "url": "https://open.spotify.com/track/32OlwWuMpZ6b0aN2RZOeMS",
+    "year": 1980,
+    "song": "Uptown Girl",
+    "artist": "Billy Joel",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 9,
+    "url": "https://open.spotify.com/track/2WfaOiMkCvy7F5fcp2zZ8L",
+    "year": 1992,
+    "song": "Under the Bridge",
+    "artist": "Red Hot Chili Peppers",
+    "playlist_ids": ["default", "90s", "rock"]
+  },
+  {
+    "id": 10,
+    "url": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+    "year": 1978,
+    "song": "September",
+    "artist": "Earth, Wind & Fire",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 11,
+    "url": "https://open.spotify.com/track/2takcwOaAZWiXQijPHIx7B",
+    "year": 1973,
+    "song": "Time",
+    "artist": "Pink Floyd",
+    "playlist_ids": ["default", "rock"]
+  },
+  {
+    "id": 12,
+    "url": "https://open.spotify.com/track/4gzpq5DPGxSnKTe4SA8HAU",
+    "year": 1984,
+    "song": "Girls Just Want to Have Fun",
+    "artist": "Cyndi Lauper",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 13,
+    "url": "https://open.spotify.com/track/1rqqCSm0Qe4I9rUvWncaom",
+    "year": 1994,
+    "song": "Loser",
+    "artist": "Beck",
+    "playlist_ids": ["default", "90s"]
+  },
+  {
+    "id": 14,
+    "url": "https://open.spotify.com/track/3AhXZa8sUQht0UEdBJgpGc",
+    "year": 1985,
+    "song": "Like a Virgin",
+    "artist": "Madonna",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 15,
+    "url": "https://open.spotify.com/track/3BovDyVxnVapYy ZKwXb9b",
+    "year": 1976,
+    "song": "Hotel California",
+    "artist": "Eagles",
+    "playlist_ids": ["default", "rock"]
+  },
+  {
+    "id": 16,
+    "url": "https://open.spotify.com/track/6habFhsOp2NvshLv26DqMb",
+    "year": 1986,
+    "song": "Take On Me",
+    "artist": "a-ha",
+    "playlist_ids": ["default", "80s", "pop"]
+  },
+  {
+    "id": 17,
+    "url": "https://open.spotify.com/track/1BxfuPKGuaTgP7aM0Bbdwr",
+    "year": 1993,
+    "song": "Creep",
+    "artist": "Radiohead",
+    "playlist_ids": ["default", "90s", "rock"]
+  },
+  {
+    "id": 18,
+    "url": "https://open.spotify.com/track/0k4d5YPDmHTguf0LHBGjhJ",
+    "year": 1987,
+    "song": "Sweet Child O' Mine",
+    "artist": "Guns N' Roses",
+    "playlist_ids": ["default", "80s", "rock"]
+  },
+  {
+    "id": 19,
+    "url": "https://open.spotify.com/track/18yTgk0VgjfhsKkbZSwOjp",
+    "year": 1996,
+    "song": "1979",
+    "artist": "The Smashing Pumpkins",
+    "playlist_ids": ["default", "90s", "rock"]
+  },
+  {
+    "id": 20,
+    "url": "https://open.spotify.com/track/7uOAF1Ud5yLcZvH9Ox8FhF",
+    "year": 1981,
+    "song": "Don't Stop Me Now",
+    "artist": "Queen",
+    "playlist_ids": ["default", "80s", "rock"]
+  },
+  {
+    "id": 21,
+    "url": "https://open.spotify.com/track/4w8niZpiMy6qz1mntFA5uM",
+    "year": 2000,
+    "song": "Yellow",
+    "artist": "Coldplay",
+    "playlist_ids": ["default", "2000s", "rock"]
+  },
+  {
+    "id": 22,
+    "url": "https://open.spotify.com/track/3KkXRkHbMCARz0aVfEt68P",
+    "year": 2001,
+    "song": "In the End",
+    "artist": "Linkin Park",
+    "playlist_ids": ["default", "2000s", "rock"]
+  },
+  {
+    "id": 23,
+    "url": "https://open.spotify.com/track/2tUBqZG2AbRi7Q0BIrVrEj",
+    "year": 2003,
+    "song": "Hey Ya!",
+    "artist": "OutKast",
+    "playlist_ids": ["default", "2000s", "pop"]
+  },
+  {
+    "id": 24,
+    "url": "https://open.spotify.com/track/4iV5W9uYEdYUVa79Axb7Rh",
+    "year": 2004,
+    "song": "Mr. Brightside",
+    "artist": "The Killers",
+    "playlist_ids": ["default", "2000s", "rock"]
+  },
+  {
+    "id": 25,
+    "url": "https://open.spotify.com/track/5YqltLsjdqFtvqE7Nryqmr",
+    "year": 2005,
+    "song": "Hollaback Girl",
+    "artist": "Gwen Stefani",
+    "playlist_ids": ["default", "2000s", "pop"]
+  }
+]

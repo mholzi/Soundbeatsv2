@@ -1,0 +1,190 @@
+# ==================================
+# .gitignore for Soundbeats HACS Integration
+# Only include files necessary to run the integration
+# ==================================
+
+# Development dependencies and configuration
+package.json
+package-lock.json
+yarn.lock
+webpack.config.js
+tsconfig.json
+.babelrc
+jest.config.js
+.eslintrc*
+.prettierrc*
+pytest.ini
+
+# Node.js and npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Build artifacts and development files
+dist/
+build/
+coverage/
+.nyc_output/
+*.tgz
+*.tar.gz
+
+# Test files and directories
+tests/
+test/
+__tests__/
+*.test.js
+*.test.py
+*.spec.js
+*.spec.py
+test_*.py
+*_test.py
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Development documentation
+PRPs/
+INITIAL_EXAMPLE.md
+initial.md
+context-engineering-intro/
+examples/
+CONTRIBUTING.md
+CHANGELOG.md
+DEVELOPMENT.md
+
+# Requirements files (not needed for runtime)
+requirements*.txt
+requirements-*.txt
+Pipfile
+Pipfile.lock
+poetry.lock
+pyproject.toml
+
+# Python development files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+.env/
+venv_*/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-*
+*.sublime-*
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# CI/CD and GitHub Actions
+.github/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+lerna-debug.log*
+
+# Cache directories
+.cache/
+.parcel-cache/
+.tmp/
+.temp/
+
+# Build outputs that can be regenerated
+custom_components/soundbeats/frontend/dist/
+
+# Development tools output
+*.map
+*.min.js
+*.min.css
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# HACS development files
+.hacs/
+
+# Editor configurations
+.editorconfig
+
+# Linting and formatting
+.pylintrc
+.flake8
+.bandit
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Claude development files
+CLAUDE.md
+claude.md
+.claude/
+
+# Home Assistant development
+config/
+.storage/
+
+# Testing frameworks
+.pytest_cache/
+.tox/
+
+# Local development overrides
+local/
+local_*
+*.local
