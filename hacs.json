@@ -1,6 +1,6 @@
 {
   "name": "Soundbeats Music Trivia",
-  "content_in_root": false,
+  "content_in_root": true,
   "render_readme": true,
   "domains": ["soundbeats"],
   "homeassistant": "2023.9.0",

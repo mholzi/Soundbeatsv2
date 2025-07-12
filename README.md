@@ -59,7 +59,7 @@ Transform your Home Assistant into an interactive music trivia party game! Sound
 1. **Download Files**:
    ```bash
    cd /config/custom_components/
-   git clone https://github.com/mholzi/Soundbeatsv2.git
+   git clone https://github.com/mholzi/Soundbeatsv2.git soundbeats
    ```
 
 2. **Restart Home Assistant**
@@ -126,7 +126,7 @@ Transform your Home Assistant into an interactive music trivia party game! Sound
 
 ### Custom Song Database
 
-Create `custom_components/soundbeats/frontend/src/data/songs.json`:
+Create `frontend/src/data/songs.json`:
 
 ```json
 [
@@ -143,7 +143,7 @@ Create `custom_components/soundbeats/frontend/src/data/songs.json`:
 
 ### Custom Playlists
 
-Create `custom_components/soundbeats/frontend/src/data/playlists.json`:
+Create `frontend/src/data/playlists.json`:
 
 ```json
 [
