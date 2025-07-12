@@ -15,7 +15,6 @@ from homeassistant.helpers.typing import ConfigType
 
 from .const import DOMAIN, CONF_MEDIA_PLAYER
 from .game_manager import GameManager
-from .panel import get_panel_url
 from .websocket_api import (
     websocket_get_game_state,
     websocket_new_game,
@@ -54,6 +53,13 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         )
     ])
     
+    # Register the panel HTML file
+    hass.http.register_static_path(
+        "/soundbeatsv2_panel",
+        hass.config.path("custom_components/soundbeatsv2/panel-simple.html"),
+        cache_headers=False
+    )
+    
     # Register custom panel
     frontend.async_register_built_in_panel(
         hass,
@@ -62,7 +68,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         sidebar_icon="mdi:music-note",
         frontend_url_path="soundbeatsv2",
         config={
-            "url": get_panel_url()
+            "url": "/soundbeatsv2_panel"
         },
         require_admin=False,
     )
