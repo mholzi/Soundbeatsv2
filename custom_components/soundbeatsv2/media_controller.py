@@ -56,6 +56,31 @@ class MediaController:
         self._media_player_entity_id = entity_id
         _LOGGER.debug("Media player set to: %s", entity_id)
     
+    async def get_current_album_art(self) -> Optional[str]:
+        """Get album art URL from current media player state."""
+        if not self._media_player_entity_id:
+            return None
+        
+        state = self.hass.states.get(self._media_player_entity_id)
+        if state and state.attributes:
+            # Check for media_image_url first (per HA docs)
+            image_url = state.attributes.get("media_image_url")
+            if image_url:
+                # Check if URL is remotely accessible
+                if state.attributes.get("media_image_remotely_accessible", False):
+                    return image_url
+                else:
+                    # Need to proxy through HA for internal URLs
+                    return f"/api/media_player_proxy/{self._media_player_entity_id}?token={state.attributes.get('access_token', '')}"
+            
+            # Fallback to entity_picture for older integrations
+            entity_picture = state.attributes.get("entity_picture")
+            if entity_picture:
+                # entity_picture is usually already a proxied URL
+                return entity_picture
+        
+        return None
+    
     async def play_snippet(
         self, 
         track_url: str, 

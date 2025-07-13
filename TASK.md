@@ -25,5 +25,22 @@
 - Fixed WebSocket event names to use consistent domain prefix (soundbeatsv2)
 - Removed unnecessary iframe panel HTML file dependency
 
+## Current Task - 2025-07-13
+**Fix 5 Major Bugs in Soundbeats Game Panel**
+
+### Bugs to Fix:
+1. Timer not working (only updates on full state changes)
+2. Cannot scroll dashboard (multiple overflow:hidden declarations)
+3. Cover art missing (not getting artwork from media player entity)
+4. Cannot add guesses (user team assignment not working)
+5. Team name boxes timing (should only be editable before game starts)
+
+### Implementation Strategy:
+- [ ] Fix timer by listening to timerUpdate events in soundbeats-panel.js
+- [ ] Fix scrolling by adjusting CSS overflow properties
+- [ ] Add media player entity state to cover art display
+- [ ] Fix user team assignment and round_active state
+- [ ] Update team name editing logic based on game state
+
 ## Completed Tasks
 (Completed tasks will be moved here with completion date)

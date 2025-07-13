@@ -24,6 +24,7 @@ class GameBoard extends LitElement {
                 flex-direction: column;
                 height: 100%;
                 gap: 20px;
+                overflow: visible;
             }
             
             .round-info {
@@ -52,12 +53,14 @@ class GameBoard extends LitElement {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
-                overflow: hidden;
+                overflow: visible;
             }
             
             .teams-section {
                 flex: 1;
                 overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
             }
             
             .teams-grid {
@@ -220,6 +223,17 @@ class GameBoard extends LitElement {
         this.isAdmin = false;
         this.userTeamId = null;
         this.gameService = null;
+    }
+    
+    connectedCallback() {
+        super.connectedCallback();
+        
+        // Force updates on any game state change
+        if (this.gameService) {
+            this.gameService.addEventListener('stateChanged', () => {
+                this.requestUpdate();
+            });
+        }
     }
     
     render() {

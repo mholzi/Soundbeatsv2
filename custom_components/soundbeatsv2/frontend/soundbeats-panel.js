@@ -30,7 +30,8 @@ class SoundbeatsPanel extends LitElement {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 font-family: 'Roboto', sans-serif;
                 color: white;
-                overflow: hidden;
+                overflow-y: auto;
+                overflow-x: hidden;
             }
             
             .container {
@@ -41,6 +42,7 @@ class SoundbeatsPanel extends LitElement {
                 margin: 0 auto;
                 padding: 16px;
                 box-sizing: border-box;
+                min-height: 0;
             }
             
             .header {
@@ -106,13 +108,20 @@ class SoundbeatsPanel extends LitElement {
                 display: grid;
                 grid-template-columns: 1fr 300px;
                 gap: 24px;
-                overflow: hidden;
+                min-height: 0;
+                overflow: visible;
             }
             
             @media (max-width: 768px) {
+                .container {
+                    height: auto;
+                    min-height: 100vh;
+                }
+                
                 .main-content {
                     grid-template-columns: 1fr;
-                    grid-template-rows: 1fr auto;
+                    grid-template-rows: auto 1fr;
+                    height: auto;
                 }
                 
                 .container {
@@ -314,7 +323,12 @@ class SoundbeatsPanel extends LitElement {
                 this.gameState = event.detail;
                 this.userTeamId = event.detail.user_team_id || null;
                 this.loading = false;
-                this.requestUpdate();
+                this.requestUpdate(); // Force update
+                
+                // Also update all child components
+                this.shadowRoot.querySelectorAll('game-board').forEach(board => {
+                    board.requestUpdate();
+                });
             });
             
             // Connect and load initial state

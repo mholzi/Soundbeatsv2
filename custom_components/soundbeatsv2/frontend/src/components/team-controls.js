@@ -382,8 +382,10 @@ class TeamControls extends LitElement {
     updated(changedProperties) {
         super.updated(changedProperties);
         
-        if (changedProperties.has('team')) {
+        if (changedProperties.has('team') || changedProperties.has('gameState')) {
             this.updateLocalValues();
+            // Force re-evaluation of canInteract
+            this.requestUpdate();
         }
     }
     
@@ -399,7 +401,10 @@ class TeamControls extends LitElement {
             return html`<div>Loading team...</div>`;
         }
         
+        // Add logging for debugging (remove after fix is verified)
         const canInteract = this.canControl && this.gameState?.round_active;
+        console.log(`Team ${this.team.id}: canControl=${this.canControl}, round_active=${this.gameState?.round_active}, canInteract=${canInteract}`);
+        
         const hasSubmittedGuess = this.team.current_guess !== null;
         
         return html`
@@ -415,7 +420,9 @@ class TeamControls extends LitElement {
     }
     
     renderTeamHeader() {
-        const isEditable = this.canControl && this.isAdmin;
+        // Only allow editing before first round or when no game is active
+        const isEditable = this.canControl && this.isAdmin && 
+                          (!this.gameState?.active || this.gameState?.current_round === 0);
         
         return html`
             <div class="team-header">

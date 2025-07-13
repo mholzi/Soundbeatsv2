@@ -297,8 +297,14 @@ export class GameService extends EventTarget {
         if (this.gameState && data.gameId === this.gameState.game_id) {
             this.gameState.timer_remaining = data.timeRemaining;
             
+            // Dispatch specific timer event
             this.dispatchEvent(new CustomEvent('timerUpdate', {
                 detail: { timeRemaining: data.timeRemaining }
+            }));
+            
+            // CRITICAL: Also trigger state change to force component re-renders
+            this.dispatchEvent(new CustomEvent('stateChanged', {
+                detail: this.gameState
             }));
         }
     }

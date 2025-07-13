@@ -308,12 +308,29 @@ class GameManager:
             # Save state
             await self.save_state()
             
-            # Broadcast round ended event
+            # Fetch album art from media player
+            album_art_url = None
+            domain_data = self.hass.data.get(DOMAIN, {})
+            entry_data = domain_data.get(self.entry.entry_id, {})
+            media_player_entity = entry_data.get("media_player")
+            
+            if media_player_entity:
+                from .media_controller import MediaController
+                media_controller = MediaController(self.hass, media_player_entity)
+                try:
+                    album_art_url = await media_controller.get_current_album_art()
+                except Exception as e:
+                    _LOGGER.warning("Failed to fetch album art: %s", e)
+            
+            # Broadcast round ended event with album art
             self.hass.bus.async_fire(EVENT_ROUND_ENDED, {
                 ATTR_GAME_ID: self._game_state.game_id,
                 ATTR_CURRENT_ROUND: self._game_state.current_round,
                 "actual_year": self._current_song["year"],
-                "song_info": self._current_song,
+                "song_info": {
+                    **self._current_song,
+                    "image_url": album_art_url  # Add fetched album art
+                },
                 "round_scores": round_data.team_scores,
             })
             
