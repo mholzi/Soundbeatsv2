@@ -323,12 +323,7 @@ class SoundbeatsPanel extends LitElement {
                 this.gameState = event.detail;
                 this.userTeamId = event.detail.user_team_id || null;
                 this.loading = false;
-                this.requestUpdate(); // Force update
-                
-                // Also update all child components
-                this.shadowRoot.querySelectorAll('game-board').forEach(board => {
-                    board.requestUpdate();
-                });
+                // Removed manual requestUpdate - Lit will auto-update when properties change
             });
             
             // Connect and load initial state

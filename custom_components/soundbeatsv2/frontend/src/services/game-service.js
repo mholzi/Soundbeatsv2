@@ -122,11 +122,14 @@ export class GameService extends EventTarget {
         try {
             const result = await this.ws.startRound(song);
             
-            // Update local state
+            // Update local state - immutable update
             if (this.gameState) {
-                this.gameState.round_active = true;
-                this.gameState.current_song = song;
-                this.gameState.timer_remaining = this.gameState.timer_seconds;
+                this.gameState = {
+                    ...this.gameState,
+                    round_active: true,
+                    current_song: song,
+                    timer_remaining: this.gameState.timer_seconds
+                };
                 
                 this.dispatchEvent(new CustomEvent('stateChanged', {
                     detail: this.gameState
@@ -144,19 +147,20 @@ export class GameService extends EventTarget {
         try {
             const result = await this.ws.nextRound();
             
-            // Update local state
+            // Update local state - immutable update
             if (this.gameState) {
-                this.gameState.round_active = false;
-                this.gameState.current_song = null;
-                this.gameState.timer_remaining = 0;
-                
-                // Reset team guesses
-                if (this.gameState.teams) {
-                    this.gameState.teams.forEach(team => {
-                        team.current_guess = null;
-                        team.has_bet = false;
-                    });
-                }
+                this.gameState = {
+                    ...this.gameState,
+                    round_active: false,
+                    current_song: null,
+                    timer_remaining: 0,
+                    // Reset team guesses using map for immutable update
+                    teams: this.gameState.teams ? this.gameState.teams.map(team => ({
+                        ...team,
+                        current_guess: null,
+                        has_bet: false
+                    })) : this.gameState.teams
+                };
                 
                 this.dispatchEvent(new CustomEvent('stateChanged', {
                     detail: this.gameState
@@ -174,17 +178,20 @@ export class GameService extends EventTarget {
         try {
             const result = await this.ws.submitGuess(teamId, year, hasBet);
             
-            // Update local state optimistically
+            // Update local state optimistically - immutable update
             if (this.gameState && this.gameState.teams) {
-                const team = this.gameState.teams.find(t => t.id === teamId);
-                if (team) {
-                    team.current_guess = year;
-                    team.has_bet = hasBet;
-                    
-                    this.dispatchEvent(new CustomEvent('stateChanged', {
-                        detail: this.gameState
-                    }));
-                }
+                this.gameState = {
+                    ...this.gameState,
+                    teams: this.gameState.teams.map(team => 
+                        team.id === teamId 
+                            ? { ...team, current_guess: year, has_bet: hasBet }
+                            : team
+                    )
+                };
+                
+                this.dispatchEvent(new CustomEvent('stateChanged', {
+                    detail: this.gameState
+                }));
             }
             
             return result;
@@ -198,16 +205,20 @@ export class GameService extends EventTarget {
         try {
             const result = await this.ws.updateTeamName(teamId, name);
             
-            // Update local state optimistically
+            // Update local state optimistically - immutable update
             if (this.gameState && this.gameState.teams) {
-                const team = this.gameState.teams.find(t => t.id === teamId);
-                if (team) {
-                    team.name = name;
-                    
-                    this.dispatchEvent(new CustomEvent('stateChanged', {
-                        detail: this.gameState
-                    }));
-                }
+                this.gameState = {
+                    ...this.gameState,
+                    teams: this.gameState.teams.map(team => 
+                        team.id === teamId 
+                            ? { ...team, name: name }
+                            : team
+                    )
+                };
+                
+                this.dispatchEvent(new CustomEvent('stateChanged', {
+                    detail: this.gameState
+                }));
             }
             
             return result;
@@ -286,7 +297,16 @@ export class GameService extends EventTarget {
     // Event handlers
     
     handleGameStateChange(data) {
+        const oldState = this.gameState;
         this.gameState = { ...this.gameState, ...data };
+        
+        // Debug logging to verify state changes (remove after validation)
+        console.log('GameState changed:', {
+            oldReference: oldState,
+            newReference: this.gameState,
+            same: oldState === this.gameState, // Should be false
+            data: data
+        });
         
         this.dispatchEvent(new CustomEvent('stateChanged', {
             detail: this.gameState
@@ -295,14 +315,18 @@ export class GameService extends EventTarget {
     
     handleTimerUpdate(data) {
         if (this.gameState && data.gameId === this.gameState.game_id) {
-            this.gameState.timer_remaining = data.timeRemaining;
+            // Create new object reference for immutable update
+            this.gameState = {
+                ...this.gameState,
+                timer_remaining: data.timeRemaining
+            };
             
             // Dispatch specific timer event
             this.dispatchEvent(new CustomEvent('timerUpdate', {
                 detail: { timeRemaining: data.timeRemaining }
             }));
             
-            // CRITICAL: Also trigger state change to force component re-renders
+            // Trigger state change with new reference
             this.dispatchEvent(new CustomEvent('stateChanged', {
                 detail: this.gameState
             }));
@@ -311,7 +335,12 @@ export class GameService extends EventTarget {
     
     handleRoundEnded(data) {
         if (this.gameState && data.gameId === this.gameState.game_id) {
-            this.gameState.round_active = false;
+            // Create new state with song info - immutable update
+            this.gameState = {
+                ...this.gameState,
+                round_active: false,
+                current_song: data.songInfo // Store complete song info including image_url
+            };
             
             this.dispatchEvent(new CustomEvent('roundEnded', {
                 detail: {
@@ -320,6 +349,11 @@ export class GameService extends EventTarget {
                     songInfo: data.songInfo,
                     roundScores: data.roundScores
                 }
+            }));
+            
+            // Trigger state change with new reference
+            this.dispatchEvent(new CustomEvent('stateChanged', {
+                detail: this.gameState
             }));
         }
     }

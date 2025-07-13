@@ -384,8 +384,7 @@ class TeamControls extends LitElement {
         
         if (changedProperties.has('team') || changedProperties.has('gameState')) {
             this.updateLocalValues();
-            // Force re-evaluation of canInteract
-            this.requestUpdate();
+            // Removed manual requestUpdate - Lit will auto-update when properties change
         }
     }
     
@@ -401,10 +400,7 @@ class TeamControls extends LitElement {
             return html`<div>Loading team...</div>`;
         }
         
-        // Add logging for debugging (remove after fix is verified)
         const canInteract = this.canControl && this.gameState?.round_active;
-        console.log(`Team ${this.team.id}: canControl=${this.canControl}, round_active=${this.gameState?.round_active}, canInteract=${canInteract}`);
-        
         const hasSubmittedGuess = this.team.current_guess !== null;
         
         return html`

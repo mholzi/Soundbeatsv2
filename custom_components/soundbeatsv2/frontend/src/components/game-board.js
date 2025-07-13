@@ -227,13 +227,7 @@ class GameBoard extends LitElement {
     
     connectedCallback() {
         super.connectedCallback();
-        
-        // Force updates on any game state change
-        if (this.gameService) {
-            this.gameService.addEventListener('stateChanged', () => {
-                this.requestUpdate();
-            });
-        }
+        // Removed forced update listener - Lit will auto-update when gameState property changes
     }
     
     render() {
