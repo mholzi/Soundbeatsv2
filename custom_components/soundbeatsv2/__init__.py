@@ -84,20 +84,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await game_manager.load_state()
     
     # Register custom panel with web component
-    panel_config = {
-        "name": "soundbeats-panel",
-        "js_url": "/soundbeatsv2_files/soundbeats-panel-loader.js",
-        "embed_iframe": False,
-        "trust_external_script": False,
-    }
-    
     frontend.async_register_built_in_panel(
         hass,
         component_name="custom",
         sidebar_title="Soundbeats",
         sidebar_icon="mdi:music-note",
         frontend_url_path="soundbeatsv2",
-        config=panel_config,
+        config={
+            "_panel_custom": {
+                "name": "soundbeats-panel",
+                "js_url": "/soundbeatsv2_files/soundbeats-panel-loader.js",
+                "module_url": "/soundbeatsv2_files/soundbeats-panel-loader.js",
+                "embed_iframe": False,
+                "trust_external": False,
+            }
+        },
         require_admin=False,
     )
     
