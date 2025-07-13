@@ -54,11 +54,13 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     ])
     
     # Register the panel HTML file
-    hass.http.register_static_path(
-        "/soundbeatsv2_panel",
-        hass.config.path("custom_components/soundbeatsv2/panel-simple.html"),
-        cache_headers=False
-    )
+    await hass.http.async_register_static_paths([
+        StaticPathConfig(
+            "/soundbeatsv2_panel",
+            hass.config.path("custom_components/soundbeatsv2/panel-simple.html"),
+            False
+        )
+    ])
     
     # Register custom panel
     frontend.async_register_built_in_panel(
