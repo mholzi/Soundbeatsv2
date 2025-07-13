@@ -3,7 +3,6 @@ import logging
 from typing import Any
 import voluptuous as vol
 
-from homeassistant.components.frontend import async_register_built_in_panel
 from homeassistant.components import frontend
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.components.websocket_api import async_register_command
@@ -53,27 +52,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         )
     ])
     
-    # Register the panel HTML file
-    await hass.http.async_register_static_paths([
-        StaticPathConfig(
-            "/soundbeatsv2_panel",
-            hass.config.path("custom_components/soundbeatsv2/panel-simple.html"),
-            False
-        )
-    ])
-    
-    # Register custom panel
-    frontend.async_register_built_in_panel(
-        hass,
-        component_name="iframe",
-        sidebar_title="Soundbeats",
-        sidebar_icon="mdi:music-note",
-        frontend_url_path="soundbeatsv2",
-        config={
-            "url": "/soundbeatsv2_panel"
-        },
-        require_admin=False,
-    )
+    # Frontend module will be loaded by the panel configuration
     
     # Register WebSocket commands
     async_register_command(hass, websocket_get_game_state)
@@ -104,8 +83,28 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Load stored state
     await game_manager.load_state()
     
+    # Register custom panel with web component
+    panel_config = {
+        "name": "soundbeats-panel",
+        "js_url": "/soundbeatsv2_files/soundbeats-panel-loader.js",
+        "embed_iframe": False,
+        "trust_external_script": False,
+    }
+    
+    frontend.async_register_built_in_panel(
+        hass,
+        component_name="custom",
+        sidebar_title="Soundbeats",
+        sidebar_icon="mdi:music-note",
+        frontend_url_path="soundbeatsv2",
+        config=panel_config,
+        require_admin=False,
+    )
+    
     # Set up platforms
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    
+    _LOGGER.info("Soundbeats panel registered successfully")
     
     return True
 
@@ -117,6 +116,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Save state before unloading
     game_manager = hass.data[DOMAIN][entry.entry_id]["game_manager"]
     await game_manager.save_state()
+    
+    # Remove panel
+    frontend.async_remove_panel(hass, "soundbeatsv2")
     
     # Unload platforms
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):

@@ -90,7 +90,7 @@ export class WebSocketService extends EventTarget {
             (event) => {
                 this.handleGameStateEvent(event);
             },
-            'soundbeats_game_state_changed'
+            'soundbeatsv2_game_state_changed'
         );
         this.subscriptions.set('game_state', unsubscribeGameState);
         
@@ -99,7 +99,7 @@ export class WebSocketService extends EventTarget {
             (event) => {
                 this.handleTimerEvent(event);
             },
-            'soundbeats_timer_update'
+            'soundbeatsv2_timer_update'
         );
         this.subscriptions.set('timer', unsubscribeTimer);
         
@@ -108,7 +108,7 @@ export class WebSocketService extends EventTarget {
             (event) => {
                 this.handleRoundEndEvent(event);
             },
-            'soundbeats_round_ended'
+            'soundbeatsv2_round_ended'
         );
         this.subscriptions.set('round_end', unsubscribeRoundEnd);
     }
