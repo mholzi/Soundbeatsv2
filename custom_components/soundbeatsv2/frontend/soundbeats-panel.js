@@ -13,7 +13,7 @@ class SoundbeatsPanel extends LitElement {
         return {
             hass: { type: Object },
             panelConfig: { type: Object },
-            gameState: { type: Object },
+            gameState: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
             connected: { type: Boolean },
             loading: { type: Boolean },
             error: { type: String },
@@ -320,9 +320,20 @@ class SoundbeatsPanel extends LitElement {
             });
             
             this.gameService.addEventListener('stateChanged', (event) => {
+                const oldGameState = this.gameState;
                 this.gameState = event.detail;
                 this.userTeamId = event.detail.user_team_id || null;
                 this.loading = false;
+                
+                // Debug logging to verify UI component receives state changes
+                console.log('SoundbeatsPanel received state change:', {
+                    oldGameState: oldGameState,
+                    newGameState: this.gameState,
+                    stateChanged: oldGameState !== this.gameState,
+                    activeChanged: oldGameState?.active !== this.gameState?.active,
+                    roundActiveChanged: oldGameState?.round_active !== this.gameState?.round_active,
+                    teamsChanged: JSON.stringify(oldGameState?.teams) !== JSON.stringify(this.gameState?.teams)
+                });
                 // Removed manual requestUpdate - Lit will auto-update when properties change
             });
             

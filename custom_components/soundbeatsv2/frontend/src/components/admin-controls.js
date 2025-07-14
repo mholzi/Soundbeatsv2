@@ -3,13 +3,14 @@ import { LitElement, html, css } from 'https://unpkg.com/lit@2.7.4?module';
 class AdminControls extends LitElement {
     static get properties() {
         return {
-            gameState: { type: Object },
+            gameState: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
             gameService: { type: Object },
             loading: { type: Boolean, state: true },
             selectedPlaylist: { type: String, state: true },
             teamCount: { type: Number, state: true },
             timerSeconds: { type: Number, state: true },
             showNewGameForm: { type: Boolean, state: true },
+            currentVolume: { type: Number, state: true },
         };
     }
     
@@ -325,6 +326,7 @@ class AdminControls extends LitElement {
         this.teamCount = 3;
         this.timerSeconds = 30;
         this.showNewGameForm = false;
+        this.currentVolume = 0.7; // Track current volume
     }
     
     render() {
@@ -542,10 +544,10 @@ class AdminControls extends LitElement {
                         min="0"
                         max="1"
                         step="0.1"
-                        value="0.7"
+                        .value=${this.currentVolume}
                         @input=${this.handleVolumeChange}
                     />
-                    <div class="slider-value">70%</div>
+                    <div class="slider-value">${Math.round(this.currentVolume * 100)}%</div>
                 </div>
             </div>
         `;
@@ -595,13 +597,8 @@ class AdminControls extends LitElement {
     
     handleVolumeChange(event) {
         const volume = parseFloat(event.target.value);
+        this.currentVolume = volume; // Update tracked volume
         this.mediaControl('volume', { volume_level: volume });
-        
-        // Update display
-        const display = event.target.parentElement.querySelector('.slider-value');
-        if (display) {
-            display.textContent = Math.round(volume * 100) + '%';
-        }
     }
     
     async startNewGame() {
@@ -659,9 +656,10 @@ class AdminControls extends LitElement {
     }
     
     async mediaControl(action, params = {}) {
-        if (!this.gameService || this.loading) return;
+        if (!this.gameService) return;
         
         try {
+            console.log('Media control action:', action, params);
             await this.gameService.mediaControl(action, params);
         } catch (error) {
             console.error('Media control failed:', error);

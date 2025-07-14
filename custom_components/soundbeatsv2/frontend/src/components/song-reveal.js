@@ -3,8 +3,8 @@ import { LitElement, html, css } from 'https://unpkg.com/lit@2.7.4?module';
 class SongReveal extends LitElement {
     static get properties() {
         return {
-            song: { type: Object },
-            lastRoundResults: { type: Array },
+            song: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
+            lastRoundResults: { type: Array, hasChanged: () => true }, // Force change detection for complex arrays
             showAnimation: { type: Boolean, state: true },
         };
     }

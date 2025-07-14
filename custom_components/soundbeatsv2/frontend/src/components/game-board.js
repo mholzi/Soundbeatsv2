@@ -5,7 +5,7 @@ import './song-reveal.js';
 class GameBoard extends LitElement {
     static get properties() {
         return {
-            gameState: { type: Object },
+            gameState: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
             isAdmin: { type: Boolean },
             userTeamId: { type: String },
             gameService: { type: Object },

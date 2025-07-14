@@ -253,9 +253,14 @@ export class GameService extends EventTarget {
     
     async endGame() {
         try {
-            // This would be implemented as a new game with 0 teams or similar
-            // For now, we'll reload the state
+            // End the current game by creating a new game with 0 teams
+            // This effectively resets the game state
+            const result = await this.ws.newGame(0, 'default', 30);
+            
+            // Reload game state to get the updated (empty) state
             await this.loadGameState();
+            
+            return result;
         } catch (error) {
             console.error('Failed to end game:', error);
             throw error;
@@ -300,12 +305,20 @@ export class GameService extends EventTarget {
         const oldState = this.gameState;
         this.gameState = { ...this.gameState, ...data };
         
-        // Debug logging to verify state changes (remove after validation)
+        // Enhanced debug logging to verify state changes and UI reactivity
         console.log('GameState changed:', {
             oldReference: oldState,
             newReference: this.gameState,
-            same: oldState === this.gameState, // Should be false
-            data: data
+            referenceChanged: oldState !== this.gameState, // Should be true
+            dataReceived: data,
+            oldActive: oldState?.active,
+            newActive: this.gameState?.active,
+            oldRoundActive: oldState?.round_active,
+            newRoundActive: this.gameState?.round_active,
+            oldCurrentRound: oldState?.current_round,
+            newCurrentRound: this.gameState?.current_round,
+            oldTeamsCount: oldState?.teams?.length,
+            newTeamsCount: this.gameState?.teams?.length
         });
         
         this.dispatchEvent(new CustomEvent('stateChanged', {

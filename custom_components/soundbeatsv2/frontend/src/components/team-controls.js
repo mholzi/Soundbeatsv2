@@ -3,8 +3,8 @@ import { LitElement, html, css } from 'https://unpkg.com/lit@2.7.4?module';
 class TeamControls extends LitElement {
     static get properties() {
         return {
-            team: { type: Object },
-            gameState: { type: Object },
+            team: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
+            gameState: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
             gameService: { type: Object },
             isAdmin: { type: Boolean },
             canControl: { type: Boolean },

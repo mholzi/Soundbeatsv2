@@ -3,9 +3,9 @@ import { LitElement, html, css } from 'https://unpkg.com/lit@2.7.4?module';
 class SoundbeatsScoreboard extends LitElement {
     static get properties() {
         return {
-            teams: { type: Array },
+            teams: { type: Array, hasChanged: () => true }, // Force change detection for complex arrays
             currentRound: { type: Number },
-            highscore: { type: Object },
+            highscore: { type: Object, hasChanged: () => true }, // Force change detection for complex objects
             showLastRoundScores: { type: Boolean },
         };
     }
@@ -368,7 +368,7 @@ class SoundbeatsScoreboard extends LitElement {
     animateScoreIncrease(teamId) {
         // Could add celebration animations here
         // For now, we'll use CSS transitions which are already defined
-        this.requestUpdate();
+        // Removed manual requestUpdate - Lit will auto-update when properties change
     }
 }
 
